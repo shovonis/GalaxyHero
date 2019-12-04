@@ -9,12 +9,17 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private GameObject _enemyContainer;
     [SerializeField] private bool _stopSpawning = false;
 
+    [SerializeField] private PowerUp _tripleShot;
+    [SerializeField] private GameObject _tripleContainer;
+
+
     void Start()
     {
-        StartCoroutine(SpawnRoutine());
+        StartCoroutine(SpawnEnemyRoutine());
+        StartCoroutine(SpawnPowerUpRoutine());
     }
 
-    IEnumerator SpawnRoutine()
+    IEnumerator SpawnEnemyRoutine()
     {
         while (!_stopSpawning)
         {
@@ -22,6 +27,18 @@ public class SpawnManager : MonoBehaviour
                 Quaternion.identity);
             enemy.gameObject.transform.parent = _enemyContainer.transform;
             yield return new WaitForSeconds(5.0f);
+        }
+    }
+    
+    IEnumerator SpawnPowerUpRoutine()
+    {
+        while (!_stopSpawning)
+        {
+            PowerUp powerUp = Instantiate(_tripleShot, new Vector3(Random.Range(-9f, 9.3f), 6.5f, 0),
+                Quaternion.identity);
+            powerUp.gameObject.transform.parent = _tripleContainer.transform;
+            float time = Random.Range(3, 7);
+            yield return new WaitForSeconds(time);
         }
     }
 

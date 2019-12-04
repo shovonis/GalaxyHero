@@ -13,7 +13,8 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(Vector3.down * Time.deltaTime * _enemySpeed);
+        transform.Translate(_enemySpeed * Time.deltaTime * Vector3.down);
+        
         if (transform.position.y < -5.5f)
         {
             transform.position = new Vector3(Random.Range(-9.3f, 9.3f), 6.5f, 0);

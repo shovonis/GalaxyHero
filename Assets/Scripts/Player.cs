@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Player : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class Player : MonoBehaviour
 
     [SerializeField] private GameObject _laserObject;
 
+    [SerializeField] private GameObject _trippleShot;
+
     [SerializeField] private float _fireRate = 0.15f;
 
     [SerializeField] private float _fireDelay = 0.0f;
@@ -15,6 +18,8 @@ public class Player : MonoBehaviour
     [SerializeField] private int _lives = 3;
 
     private SpawnManager _spawnManager;
+
+    private bool _isTrippleShotEnabled = false;
 
     void Start()
     {
@@ -41,7 +46,15 @@ public class Player : MonoBehaviour
     private void CreateLaser()
     {
         _fireDelay = _fireRate + Time.time;
-        Instantiate(_laserObject, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
+
+        if (_isTrippleShotEnabled)
+        {
+            Instantiate(_trippleShot, transform.position , Quaternion.identity);
+        }
+        else
+        {
+            Instantiate(_laserObject, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
+        }
     }
 
     private void CalculateMovement()
@@ -67,11 +80,23 @@ public class Player : MonoBehaviour
     public void Damage()
     {
         _lives--;
-        
         if (_lives < 1)
         {
             _spawnManager.OnPlayerDeath();
             Destroy(this.gameObject);
         }
+    }
+
+    public void ActivateTripleShot()
+    {
+        _isTrippleShotEnabled = true;
+        StartCoroutine(TripleShotPowerDown());
+
+    }
+
+    IEnumerator TripleShotPowerDown()
+    {
+        yield return new WaitForSeconds(5.0f);
+        _isTrippleShotEnabled = false;
     }
 }
