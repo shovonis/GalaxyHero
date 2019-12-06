@@ -1,20 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
-
     [SerializeField] private float _speed = 3;
-    
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+ 
     void Update()
     {
         transform.Translate(Time.deltaTime * _speed * Vector3.down);
@@ -30,7 +19,6 @@ public class PowerUp : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             Destroy(this.gameObject);
-
             Player player = other.transform.GetComponent<Player>();
 
             if (player != null)

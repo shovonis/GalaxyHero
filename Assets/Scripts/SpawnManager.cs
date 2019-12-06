@@ -7,11 +7,9 @@ public class SpawnManager : MonoBehaviour
 {
     [SerializeField] private Enemy _enemy;
     [SerializeField] private GameObject _enemyContainer;
-    [SerializeField] private bool _stopSpawning = false;
-
+    [SerializeField] private bool _stopSpawning;
     [SerializeField] private PowerUp _tripleShot;
     [SerializeField] private GameObject _tripleContainer;
-
 
     void Start()
     {
@@ -29,7 +27,7 @@ public class SpawnManager : MonoBehaviour
             yield return new WaitForSeconds(5.0f);
         }
     }
-    
+
     IEnumerator SpawnPowerUpRoutine()
     {
         while (!_stopSpawning)

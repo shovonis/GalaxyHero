@@ -30,7 +30,6 @@ public class Player : MonoBehaviour
         {
             Debug.LogError("Null Spawn Manager");
         }
-        
     }
 
     void Update()
@@ -49,7 +48,7 @@ public class Player : MonoBehaviour
 
         if (_isTrippleShotEnabled)
         {
-            Instantiate(_trippleShot, transform.position , Quaternion.identity);
+            Instantiate(_trippleShot, transform.position, Quaternion.identity);
         }
         else
         {
@@ -91,7 +90,6 @@ public class Player : MonoBehaviour
     {
         _isTrippleShotEnabled = true;
         StartCoroutine(TripleShotPowerDown());
-
     }
 
     IEnumerator TripleShotPowerDown()
